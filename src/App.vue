@@ -51,6 +51,11 @@ export default {
       $(menuTabs[i]).css("display", "none")
     }
     $(menuTabs[index]).css("display", "block")
+    if(index > 0){
+      theObj.selectedStreamTitle= ""
+      theObj.selectedStreamDescription= ""
+      theObj.selectedStreamLabel= ""
+    }
   }
 };
 </script>

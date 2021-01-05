@@ -88,6 +88,17 @@ export default {
         alert("flvjs isn't supported");
       }
     });
+    document.addEventListener("visibilitychange", function () {
+      // https://github.com/bilibili/flv.js/issues/627 “切换页面或者最小化后，视频会暂停”问题的解决方案
+      try {
+        const buffered = theObj.player.buffered.end(0) - 0.1;
+        if (buffered - theObj.player.currentTime > 1) {
+          theObj.player.currentTime = buffered;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
   },
   stopPlayingVideo() {
     if (resourceHasSelected) {
