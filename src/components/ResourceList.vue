@@ -89,6 +89,14 @@ export default {
       }
     });
   },
+  stopPlayingVideo() {
+    if (resourceHasSelected) {
+      theObj.frameStreams[resourceSelectedIndex].isActive = false;
+      theObj.player.destroy();
+      resourceHasSelected = false;
+      resourceSelectedIndex = -1;
+    }
+  },
 };
 </script>
 

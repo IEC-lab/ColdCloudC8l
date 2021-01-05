@@ -1,19 +1,25 @@
 <template>
   <div id="app_content">
-    <div id="videoTitle">
-      <div class="title_label">{{ selectedStreamLabel }}</div>
-      <div class="title_content">{{ selectedStreamTitle }}</div>
+    <div class="one_menu_tab">
+      <div id="videoTitle">
+        <div class="title_label">{{ selectedStreamLabel }}</div>
+        <div class="title_content">{{ selectedStreamTitle }}</div>
+      </div>
+      <div id="videoDescription">{{ selectedStreamDescription }}</div>
+      <video id="videoPlay" muted controls width="960" height="540"></video>
+      <div id="resource_list"></div>
+      <div id="structed_msgs"></div>
     </div>
-    <div id="videoDescription">{{ selectedStreamDescription }}</div>
-    <video id="videoPlay" muted controls width="960" height="540"></video>
-    <div id="resource_list"></div>
-    <div id="structed_msgs"></div>
+    <div class="one_menu_tab">
+      车辆检索
+    </div>
   </div>
 </template>
 
 <script>
 import $ from "jquery";
 var theObj = null;
+var menuTabs = null;
 export default {
   name: "App",
   data() {
@@ -26,6 +32,11 @@ export default {
   mounted: function () {
     theObj = this;
     this.videoEle = $("#videoPlay")[0];
+    menuTabs = $(".one_menu_tab");
+    for(var i = 0; i < menuTabs.length; i++){
+      $(menuTabs[i]).css("display", "none")
+    }
+    $(menuTabs[0]).css("display", "block")
   },
   setTitleAndDescription(title, description) {
     theObj.selectedStreamTitle = title;
@@ -35,6 +46,12 @@ export default {
   getVideoEle() {
     return theObj.videoEle;
   },
+  switchMenuTab(index) {
+    for(var i = 0; i < menuTabs.length; i++){
+      $(menuTabs[i]).css("display", "none")
+    }
+    $(menuTabs[index]).css("display", "block")
+  }
 };
 </script>
 

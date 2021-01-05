@@ -3,7 +3,7 @@
     <br /><br />
     <p id="menu_title">车辆结构化系统</p>
     <br /><br />
-    <div v-for="menuItem in menuItems" :key="menuItem">
+    <div v-for="menuItem in menuItems" :key="menuItem.index">
       <p
         class="menu_item"
         :class="{ selected: menuItem.isSelected }"
@@ -17,6 +17,8 @@
 
 <script>
 import $ from "jquery";
+import App from "@/App";
+import ResourceList from "@/components/ResourceList";
 var theObj = null;
 export default {
   name: "Menu",
@@ -37,7 +39,10 @@ export default {
       for (var i = 0; i < theObj.menuItems.length; i++) {
         theObj.menuItems[i].isSelected = false;
       }
-      theObj.menuItems[$(this).attr("item_index")].isSelected = true;
+      var menuItemIndex = $(this).attr("item_index");
+      theObj.menuItems[menuItemIndex].isSelected = true;
+      App.switchMenuTab(menuItemIndex);
+      if (menuItemIndex != 0) ResourceList.stopPlayingVideo();
     });
   },
 };
