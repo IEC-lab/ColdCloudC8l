@@ -81,6 +81,7 @@ export default {
         try {
           theObj.player.load();
           theObj.player.play();
+          theObj.getStructedMsgs(Common.STRUCTEDMSGSWSURL);
         } catch (error) {
           console.log(error);
         }
@@ -102,11 +103,51 @@ export default {
   },
   stopPlayingVideo() {
     if (resourceHasSelected) {
+      theObj.socket.close();
       theObj.frameStreams[resourceSelectedIndex].isActive = false;
       theObj.player.destroy();
       resourceHasSelected = false;
       resourceSelectedIndex = -1;
     }
+  },
+  methods: {
+    getStructedMsgs: function (path) {
+      if (typeof WebSocket === "undefined") {
+        alert("您的浏览器不支持socket");
+      } else {
+        // 实例化socket
+        this.socket = new WebSocket(path);
+        // 监听socket连接
+        this.socket.onopen = this.open;
+        // 监听socket错误信息
+        this.socket.onerror = this.error;
+        // 监听socket消息
+        this.socket.onmessage = this.getMessage;
+        // 监听socket关闭
+        this.socket.onclose = this.close;
+      }
+    },
+    open: function () {
+      console.log("socket连接成功");
+      // this.socket.close();
+    },
+    error: function () {
+      console.log("连接错误");
+    },
+    getMessage: function (msg) {
+      console.log(msg.data);
+      if (msg.data != "ping") {
+        var jsonObj = JSON.parse(msg.data);
+        // console.log(jsonObj["vehicle"]["img"]);
+        App.addStructedMsgs(jsonObj);
+      }
+    },
+    send: function (msg) {
+      // this.socket.send(msg);
+    },
+    close: function (e) {
+      console.log("socket已经关闭: ", e);
+    },
   },
 };
 </script>

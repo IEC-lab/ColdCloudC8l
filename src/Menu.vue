@@ -23,7 +23,7 @@ var theObj = null;
 export default {
   name: "Menu",
   data() {
-    var menuItems = [{ content: "实时预览" }, { content: "车辆检索" }];
+    var menuItems = [{ content: "实时预览" }, { content: "车辆检索" }, { content: "任务管理" }];
     for (var i = 0; i < menuItems.length; i++) {
       menuItems[i].index = i;
       menuItems[i].isSelected = false;

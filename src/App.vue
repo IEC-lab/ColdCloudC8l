@@ -8,10 +8,28 @@
       <div id="videoDescription">{{ selectedStreamDescription }}</div>
       <video id="videoPlay" muted controls width="960" height="540"></video>
       <div id="resource_list"></div>
-      <div id="structed_msgs"></div>
+      <div id="structed_msgs">
+        <div
+          class="one_msg"
+          v-for="structedMsg in structedMsgs"
+          :key="structedMsg['ID']"
+        >
+          <img
+            :src="structedMsg['src']"
+            width="180px"
+            height="180px"
+          />
+        </div>
+      </div>
     </div>
+    <div class="one_menu_tab">车辆检索</div>
     <div class="one_menu_tab">
-      车辆检索
+      <h1>Atlas200DK</h1>
+      <br />
+      <h2>已有任务</h2>
+      <br />
+      <h2>发布任务</h2>
+      <br />
     </div>
   </div>
 </template>
@@ -20,6 +38,7 @@
 import $ from "jquery";
 var theObj = null;
 var menuTabs = null;
+var structedMsgID = 1;
 export default {
   name: "App",
   data() {
@@ -27,16 +46,17 @@ export default {
       selectedStreamTitle: "",
       selectedStreamDescription: "",
       selectedStreamLabel: "",
+      structedMsgs: new Array(),
     };
   },
   mounted: function () {
     theObj = this;
     this.videoEle = $("#videoPlay")[0];
     menuTabs = $(".one_menu_tab");
-    for(var i = 0; i < menuTabs.length; i++){
-      $(menuTabs[i]).css("display", "none")
+    for (var i = 0; i < menuTabs.length; i++) {
+      $(menuTabs[i]).css("display", "none");
     }
-    $(menuTabs[0]).css("display", "block")
+    $(menuTabs[0]).css("display", "block");
   },
   setTitleAndDescription(title, description) {
     theObj.selectedStreamTitle = title;
@@ -47,15 +67,20 @@ export default {
     return theObj.videoEle;
   },
   switchMenuTab(index) {
-    for(var i = 0; i < menuTabs.length; i++){
-      $(menuTabs[i]).css("display", "none")
+    for (var i = 0; i < menuTabs.length; i++) {
+      $(menuTabs[i]).css("display", "none");
     }
-    $(menuTabs[index]).css("display", "block")
-    if(index > 0){
-      theObj.selectedStreamTitle= ""
-      theObj.selectedStreamDescription= ""
-      theObj.selectedStreamLabel= ""
+    $(menuTabs[index]).css("display", "block");
+    if (index > 0) {
+      theObj.selectedStreamTitle = "";
+      theObj.selectedStreamDescription = "";
+      theObj.selectedStreamLabel = "";
+      theObj.structedMsgs.length = 0;
     }
+  },
+  addStructedMsgs(obj){
+    theObj.structedMsgs.push({"id": structedMsgID, "src": obj["vehicle"]["img"]});
+    structedMsgID++;
   }
 };
 </script>
@@ -110,5 +135,19 @@ export default {
 }
 #structed_msgs {
   position: absolute;
+  top: 720px;
+  left: 145px;
+  width: 1385px;
+  height: 200px;
+  padding-bottom: 10px;
+  background-color: white;
+  overflow-x: auto;
+  overflow-y: auto;
+  /*border: 1px solid black;*/
+}
+#structed_msgs .one_msg {
+  display: inline-block;
+  margin: 10px 0 0px 13px;
+  padding: 0;
 }
 </style>
