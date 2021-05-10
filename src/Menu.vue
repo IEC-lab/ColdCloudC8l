@@ -1,7 +1,7 @@
 <template>
   <div id="app_menu">
     <br /><br />
-    <p id="menu_title">车辆结构化系统</p>
+    <p id="menu_title">视频流分析系统</p>
     <br /><br />
     <div v-for="menuItem in menuItems" :key="menuItem.index">
       <p
@@ -23,7 +23,7 @@ var theObj = null;
 export default {
   name: "Menu",
   data() {
-    var menuItems = [{ content: "实时预览" }, { content: "车辆检索" }, { content: "任务管理" }];
+    var menuItems = [{ content: "实时预览" }, { content: "智能信息检索" }, { content: "任务管理" }];
     for (var i = 0; i < menuItems.length; i++) {
       menuItems[i].index = i;
       menuItems[i].isSelected = false;

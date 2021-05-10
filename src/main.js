@@ -5,6 +5,7 @@ import Header from './Header'
 import Menu from './Menu'
 import App from './App'
 import ResourceList from './components/ResourceList'
+import IntelligentMsg from './components/IntelligentMsg'
 import router from './router'
 import Video from 'video.js'
 import 'video.js/dist/video-js.css'
@@ -38,4 +39,11 @@ new Vue({
   router,
   components: { ResourceList },
   template: '<ResourceList/>'
+})
+
+new Vue({
+  el: '#intelligent_msg',
+  router,
+  components: { IntelligentMsg },
+  template: '<IntelligentMsg/>'
 })

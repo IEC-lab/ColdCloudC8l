@@ -22,7 +22,9 @@
         </div>
       </div>
     </div>
-    <div class="one_menu_tab">车辆检索</div>
+    <div class="one_menu_tab">
+      <div id="intelligent_msg"></div>
+    </div>
     <div class="one_menu_tab">
       <h1>Atlas200DK</h1>
       <br />
